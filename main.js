@@ -1,3 +1,6 @@
+const template = document.querySelector("#pet-card-template")
+const wrapper = document.createDocumentFragment()
+
 async function start() {
   const weatherPromise = await fetch("https://api.weather.gov/gridpoints/MFL/110,50/forecast")
   const weatherData = await weatherPromise.json()
@@ -15,11 +18,14 @@ async function petsArea() {
   petsData.forEach(pet => {
     const clone = template.content.cloneNode(true)
 
-clone.querySelector("h3").textContent = pet.name
-clone.querySelector(".pet-description").textContent = pet.description
-clone.querySelector("pet-age").textContent = createAgeText(pet.birthYear)
-clone.querySelector("pet-card-photo img").src = pet.photo
-clone.querySelector("pet-card-photo img").alt = `A ${pet.species} named ${pet.name}`
+    clone.querySelector("h3").textContent = pet.name
+    clone.querySelector(".pet-description").textContent = pet.description
+    clone.querySelector(".pet-age").textContent = createAgeText(pet.birthYear)
+
+    if (!pet.photo) pet.photo = "images/fallback.jpg"
+
+    clone.querySelector(".pet-card-photo img").src = pet.photo
+    clone.querySelector(".pet-card-photo img").alt = `A ${pet.species} named ${pet.name}.`
 
     wrapper.appendChild(clone)
   })
@@ -36,5 +42,4 @@ function createAgeText(birthYear) {
   if (age == 0) return "Less than a year old"
 
   return `${age} years old`
-  
 }
