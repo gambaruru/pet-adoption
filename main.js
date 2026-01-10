@@ -16,6 +16,7 @@ async function petsArea() {
     const clone = template.content.cloneNode(true)
 
 clone.querySelector("h3").textContent = pet.name
+clone.querySelector(".pet-description").textContent = pet.description
 
     wrapper.appendChild(clone)
   })
@@ -23,3 +24,4 @@ clone.querySelector("h3").textContent = pet.name
 }
 
 petsArea()
+
