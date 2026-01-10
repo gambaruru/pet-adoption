@@ -24,3 +24,4 @@ clone.querySelector(".pet-description").textContent = pet.description
 }
 
 petsArea()
+
